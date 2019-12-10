@@ -17,6 +17,8 @@ target/
 *.iws
 *.iml
 *.ipr
+its.iml
+.idea/workspace.xml
 
 ### NetBeans ###
 /nbproject/private/
@@ -28,3 +30,27 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# kdiff3 ignore
+*.orig
+
+data/elasticsearch
+
+
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+
+# system ignore
+.DS_Store
+Thumbs.db
+
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+
+
