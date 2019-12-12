@@ -32,15 +32,22 @@ object HelloWorld {
     println(calendar.get(Calendar.MONTH))
     println(calendar.get(Calendar.DAY_OF_MONTH))
 
-
     val sparkConf = new SparkConf()
     sparkConf.setAppName("local")
 
-    val sparkContent = new SparkContext(sparkConf)
+    val sc = new SparkContext(sparkConf)
 
-    val  data = Seq((1, "a"),(2, "Key"),(3, "val"))
+    val  data = List((1, "a"), (1, "a"), (1, "b"), (2, "Key"), (3, "val"))
 
-    val input_some: RDD[(Int, String)] = sparkContent.parallelize(data)
+    val dataMap = sc.parallelize(data)
+      .map(x => (x, 1))
+      .reduceByKey(_ + _)
+      .map(item => (item._1._1, (item._1._2, item._2)))
+      .sortByKey()
+      .saveAsTextFile("")
+
+
+    val input_some: RDD[(Int, String)] = sc.parallelize(data)
 
     /*implicit : Scala在面对编译出现类型错误时，提供了一个由编译器自我修复的机制，编译器试图去寻找一个隐式implicit的转换方法，转换出正确的类型，完成编译
       两个作用：
